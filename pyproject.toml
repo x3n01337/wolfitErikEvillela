@@ -1,0 +1,25 @@
+[project]
+name = "wolfit"
+version = "0.1.0"
+requires-python = ">=3.8"
+dependencies = [
+    "flask",
+    "flask-script",
+    "flask-wtf",
+    "flask-sqlalchemy",
+    "flask-migrate",
+    "flask-login",
+    "praw",
+    "markdown",
+    "flask-bootstrap",
+    "urllib3",
+    "email-validator",
+]
+
+[dependency-groups]
+dev = [
+    "flake8",
+    "pytest",
+    "coverage",
+    "flask-testing",
+]

@@ -4,6 +4,8 @@
 
 Before you clone and try to get the sample app working, you'll need a valid Python 3 (3.8 or newer) installation ([Python downloads](https://www.python.org/downloads/)).
 
+You will also need [uv](https://docs.astral.sh/uv/getting-started/installation/) installed for Python environment and dependency management.
+
 Next, make sure you have a working [SQLite3](https://www.sqlite.org/) engine installed. On MacOS or Linux it is probably already installed. You should also install the [DB Browser for SQLite](https://sqlitebrowser.org/) as this will help you inspect schemas and data.
 
 ## Clone this repository to your local dev environment
@@ -40,14 +42,13 @@ BLOG_DATABASE_NAME = 'wolfit_XYZ.db'
 ```
 
 * [Generate your own secret key](https://stackoverflow.com/questions/34902378/where-do-i-get-a-secret-key-for-flask). Best practice is to *not* check secrets like this into Git, hence the reason `dev.settings` and `test.settings` are in the `.gitignore` file.
-* Configure your pipenv environment and download required Python modules. Start by getting pipenv itself working using [these instructions](https://pipenv.readthedocs.io/en/latest/). Then, in the working directory containing the clone of this app:
+* Install the project dependencies using uv:
 
 ``` sh
-pipenv install -d
-pipenv shell
+uv sync
 ```
 
-Once you have requisite libraries installed, you will *always* need to start your development session by entering the `pipenv shell`. We use the `-d` option to install development packages specified in the Pipfile.
+This will create a `.venv` virtual environment and install all required packages (including dev dependencies). You do not need to manually activate the virtual environment — the helper scripts use `uv run` to automatically run commands in the correct environment.
 
 ## Build / migrate the development database
 
@@ -70,7 +71,7 @@ export WOLFIT_SETTINGS=$(pwd)/dev.settings
 Now run the database upgrade, which will create
 
 ``` sh
-flask db upgrade
+uv run flask db upgrade
 ```
 
 You should see all of the migrations being applied to your development database. Ignore any "unsupported ALTER" warnings: we are using a non-production quality database (SQLite) that doesn't support the full SQL language.
@@ -142,12 +143,12 @@ Then you can load up some sample posts by running the following shell script:
 
 ``` sh
 export WOLFIT_SETTINGS=$(pwd)/dev.settings
-flask sample_data load
+uv run flask sample_data load
 ```
 
 You can optionally give the name of a subreddit as parameter to the `load` command. By default the script will load from [`/r/learnpython`](https://www.reddit.com/r/learnpython/). This example will load recent posts from the `computerscience` subreddit:
 
 ``` sh
 export WOLFIT_SETTINGS=$(pwd)/dev.settings
-flask sample_data load -s computerscience
+uv run flask sample_data load -s computerscience
 ```
