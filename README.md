@@ -116,39 +116,16 @@ sudo apt install wslu
 
 Then run `cov.sh`.
 
-## Load up some sample posts from Reddit
+## Load up some sample posts
 
-A great way to load up content into this Reddit clone is to copy some submissions from Reddit to your local sandbox. I've created a custom flask command (`sample_data load`), but in order to run it you'll need to configure the PRAW API with a praw.ini file. Create such a file in the root of your project, and add these entries:
-
-``` ini
-[DEFAULT]
-client_id=<your client ID>
-client_secret=<your secret>
-user_agent=python:edu.wou.<your user ID at WOU>
-```
-
-You will get your ID and secret by [creating an app under your Reddit profile](https://www.reddit.com/prefs/apps).
-
-Follow these steps:
-
-1. Click the "create app" at the bottom of the [Reddit apps page](https://www.reddit.com/prefs/apps).
-2. Give it a name you will recognize, such as "Load posts for Wolfit".
-3. Select the script option.
-4. Fill in this for the redirect API: `http://www.example.com/unused/redirect/uri`
-5. Client the "create app" button.
-6. Under your app name you will see a client ID that looks something like this: `R2jyWgoETNkBfQ`
-7. You will also see your secret shown. Copy both the client ID and the secret into your praw.ini file.
-
-Then you can load up some sample posts by running the following shell script:
+You can populate the app with randomly generated sample posts using the `sample_data load` command. No external API keys are needed.
 
 ``` sh
-export WOLFIT_SETTINGS=$(pwd)/dev.settings
-uv run flask sample_data load
+./load_sample_data.sh
 ```
 
-You can optionally give the name of a subreddit as parameter to the `load` command. By default the script will load from [`/r/learnpython`](https://www.reddit.com/r/learnpython/). This example will load recent posts from the `computerscience` subreddit:
+You can optionally give the name of a subreddit (category) and a count. By default the script generates 100 posts under `learnpython`. This example generates 50 posts under `computerscience`:
 
 ``` sh
-export WOLFIT_SETTINGS=$(pwd)/dev.settings
-uv run flask sample_data load -s computerscience
+./load_sample_data.sh computerscience 50
 ```

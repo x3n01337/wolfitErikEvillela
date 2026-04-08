@@ -9,7 +9,6 @@ dependencies = [
     "flask-sqlalchemy",
     "flask-migrate",
     "flask-login",
-    "praw",
     "markdown",
     "flask-bootstrap",
     "urllib3",
