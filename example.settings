@@ -1,2 +1,3 @@
-SECRET_KEY="your-secret-key"
+SECRET_KEY="REDACTED"
+# Refer to local txt file "SecretKey1" on main machine for key.
 BLOG_DATABASE_NAME='wolfit_test.db'
