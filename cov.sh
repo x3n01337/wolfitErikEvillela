@@ -3,7 +3,7 @@
 export WOLFIT_SETTINGS=$(pwd)/test.settings
 export FLASK_ENV=test
 export FLASK_DEBUG=0
-uv run coverage run --source "app/" --omit "app/commands.py" -m pytest
+uv run coverage run --source "." --omit "tests/*" -m pytest
 uv run coverage html
 
 set -e
